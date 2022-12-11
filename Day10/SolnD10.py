@@ -1,5 +1,5 @@
 ###############################################################
-#   Soln for P1 of Day 9 for AoC
+#   Soln for P1 of Day 10 for AoC
 #
 # Problem:
 #     Given a sequence of pseudo-assembly code and the assumption
@@ -46,7 +46,7 @@ def p1Soln(inFile: str) -> int:
     return notedSignal
 
 ###############################################################
-#   Soln for P1 of Day 9 for AoC
+#   Soln for P1 of Day 10 for AoC
 #
 # Problem:
 #     We now know our register represents the mid position of a 3-char

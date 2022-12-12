@@ -88,7 +88,7 @@ class MonkeySim:
         So we parse the file assuming the following structure is followed...'''
     def initMonkeysFromFile(self, inFile: str) -> None:
         # set up some useful constants here
-        from operator import mul, add, sub
+        from operator import mul, add
         from functools import partial # for op binding
         def repArgDecorator(f: Callable): # also for op binding
             def repArgBinder(x1):

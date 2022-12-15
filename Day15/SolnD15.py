@@ -41,15 +41,6 @@ def parseSensorStrengths(inFile: str) -> tuple[dict[tuple[int, int], int], set[t
 
     return sensorDists, beaconLocs
 
-###############################################################
-#   Soln for P2 of Day 15 for AoC
-#
-# Problem:
-#     With the same map generated from the points parsed above,
-#     now find the single point within the indicated square grid
-#     that is the only potential solution for the possible beacon
-#     recorded.
-###############################################################
 '''
     Takes in the row to be checked as an input along with a dict containing the
     sensor locations and the L1 distance of the beacon they connected to. 
@@ -86,6 +77,15 @@ def checkLineOverlap(relRow: int, signalLocDists: dict[tuple[int, int], int],
 
     return len(numBlockedLocs) - overlapBlocks
 
+###############################################################
+#   Soln for P2 of Day 15 for AoC
+#
+# Problem:
+#     With the same map generated from the points parsed above,
+#     now find the single point within the indicated square grid
+#     that is the only potential solution for the possible beacon
+#     recorded.
+###############################################################
 '''
     This function will by far be the one that takes the longest to execute. Naively checking
     between all the coordinates one-by-one will take far too long. Instead, we use a tactic

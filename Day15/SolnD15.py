@@ -85,6 +85,19 @@ def checkLineOverlap(relRow: int, signalLocDists: dict[tuple[int, int], int],
 #     now find the single point within the indicated square grid
 #     that is the only potential solution for the possible beacon
 #     recorded.
+#
+# Note:
+#     Upon consideration, if we imagine every diamond region being
+#     extended out by one sector, then we will be guaranteed that
+#     one of those intersections will be where the empty point
+#     is situated. The only problem is that there can be up to two
+#     points of intersection for each diamond and checking would
+#     require computing the intersection of 4*(num_sensors) lines
+#     between each other, effectively making for a O(N^2) operation.
+#
+#     I haven't implemented a line class that computes intersections
+#     before so it does seem like an interesting way to approach it.
+#     Might try it out sooner rather than later.
 ###############################################################
 '''
     This function will by far be the one that takes the longest to execute. Naively checking

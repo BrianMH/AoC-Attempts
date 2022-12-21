@@ -1,5 +1,5 @@
 ###############################################################
-#   Soln for P1 and P2 of Day 17 for AoC
+#   Soln for P1 and P2 of Day 18 for AoC
 #
 # Problem:
 #     There is a 3D object of sorts that is being explored.

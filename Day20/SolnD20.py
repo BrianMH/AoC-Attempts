@@ -1,10 +1,13 @@
 ###############################################################
-#   Soln for P1 of Day 20 for AoC
+#   Soln for P1 & P2 of Day 20 for AoC
 #
 # Problem:
 #     We get an input of numbers corresponding to an encrypted
 #     file that should be re-arranged based on the number that
 #     is read (move number X spaces to the right).
+#     The second part just makes us rerun the first part multiple
+#     times so the original function was slightly modified
+#     to accommodate that.
 ###############################################################
 # makes input unique if necessary
 def parseInput(inFile: str) -> list[tuple[int, int]]:

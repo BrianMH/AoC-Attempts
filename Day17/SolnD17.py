@@ -9,16 +9,15 @@
 #     piece or the wall. (Left/Right movements that would collide
 #     with another piece or the wall horizontally are performed but
 #     have no effect on the game)
-#     Part 2 is simply running the algorithm for a lot longer. One
-#     thing to notice is that the way to get around the memory limitation
-#     is simply to wipe the entire field ones a completely filled row is
-#     encountered and then keep track of the number of rows that were below
-#     it. (In general, we can only have (min_width-1) open spaces to determine
-#     a "full" row)
+#     Part 2 is simply running the algorithm for a lot longer. After
+#     some simulation with custom inputs, the algorithm is looking for
+#     some sequence of repeating patterns. With that in mind, we can
+#     convert the top N rows into a binary string which is then the
+#     hash value for a tuple containing the number of blocks dropped
+#     and the number of inputs read until that point.
 ###############################################################
 from functools import lru_cache
 from time import sleep
-from collections import defaultdict
 
 class TetrisPiece:
     # static constants
@@ -80,9 +79,12 @@ class Tetris:
         self.totPieces = 0
         self.pBLCoord = (-1, -1)
         self.clearedFieldSizes = list()
+        self.arenaCacheDict = dict()
 
         # constants for printing
         self.DISP_INC = 3
+        self.WARMUP_PIECES = 100
+        self.CACHE_LIM = 64
         self.addTups = lambda tupL, tupR: (tupL[0]+tupR[0], tupL[1]+tupR[1])
         self.wait = lambda : sleep(refreshRate)
 
@@ -118,7 +120,7 @@ class Tetris:
             self.hPoint -= wipeBelowY
             self.clearedFieldSizes.append(wipeBelowY)
 
-    def executePatternUntilPieceNo(self, pattern: list[str], maxPCnt: int, *, verbose: bool = False) -> None:
+    def executePatternUntilPieceNo(self, pattern: list[str], maxPCnt: int, *, useCache: bool = False, verbose: bool = False) -> None:
         if verbose:
             printField = lambda : print(self)
         else:
@@ -126,7 +128,9 @@ class Tetris:
 
         # parse moves one by one
         patternInd = -1
+        iterInd = -1
         while True:
+            iterInd += 1
             patternInd = (patternInd + 1)%len(pattern)
             command = pattern[patternInd]
 
@@ -137,9 +141,23 @@ class Tetris:
                     self.writePieceToField()
                 else:       # freeze it
                     self.writePieceToField(self.FROZEN)
-                    self.rollOverOnFilledLined()
                     self.inPlay = False
                     self.totPieces += 1
+
+                    # after placing piece, check play area dict
+                    if useCache:
+                        if self.totPieces > self.WARMUP_PIECES:
+                            hashVal = self.convertArenaToBits()
+                            if hashVal not in self.arenaCacheDict:
+                                self.arenaCacheDict[hashVal] = (self.hPoint, self.totPieces)
+                            else:
+                                pPeriod = self.totPieces - self.arenaCacheDict[hashVal][1]
+                                hPeriod = self.hPoint - self.arenaCacheDict[hashVal][0]
+                                self.clearedFieldSizes.append(hPeriod * ((maxPCnt - self.totPieces)//pPeriod))
+                                self.totPieces += (pPeriod * ((maxPCnt - self.totPieces)//pPeriod))
+                    else:
+                        self.rollOverOnFilledLined()
+
                 if verbose: printField(); self.wait()
                 if self.totPieces == maxPCnt:
                     return
@@ -193,6 +211,15 @@ class Tetris:
                 self.hPoint = max(self.hPoint, newPt[0]+1)
             self.sparseArr[newPt] = TetrisPiece.PIECE_VAL if not modVal else modVal
 
+    # converts the field into a string with bits representing blocked or non-blocked
+    # elements
+    def convertArenaToBits(self) -> str:
+        fString = ""
+        for rInd in range(self.hPoint - self.CACHE_LIM, self.hPoint):
+            fString += "".join(['1' if self.sparseArr.get((rInd, colInd), "") else '0' for colInd in range(self.playWidth)])
+
+        return fString
+
     def __str__(self):
         retStr = ["+" + "-" * self.playWidth + "+"]
         for rowInd in range(self.hPoint+self.DISP_INC+self.curPieceHeight):
@@ -220,5 +247,5 @@ if __name__ == "__main__":
 
     # now execute part 2
     sim = Tetris(pLex, 7)
-    sim.executePatternUntilPieceNo(inputs, 1000000000000)
+    sim.executePatternUntilPieceNo(inputs, 1000000000000, useCache = True)
     print("Solution to part 2 is {}".format(sim.getTotalHeight()))

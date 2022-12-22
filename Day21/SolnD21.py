@@ -97,18 +97,11 @@ def calculateMissingVal(missing: str, root: str, oDict: dict[str, tuple[str, str
     curNode = lBranch if leftIsMissing else rBranch
     while curNode != 'humn':
         curNodeExpr = oDict[curNode]
-        otherVal = None
 
         # find branch that must be backpropagated and other value
         leftIsMissing = doesBranchHaveMonkey(missing, curNodeExpr[0], oDict)
-        if leftIsMissing:
-            curNode = curNodeExpr[0]
-            otherNode = curNodeExpr[2]
-            otherVal = getRootVal(curNodeExpr[2], oDict, vDict)
-        else:
-            curNode = curNodeExpr[2]
-            otherNode = curNodeExpr[0]
-            otherVal = getRootVal(curNodeExpr[0], oDict, vDict)
+        curNode, otherVal = (curNodeExpr[0], getRootVal(curNodeExpr[2], oDict, vDict)) if leftIsMissing else \
+                            (curNodeExpr[2], getRootVal(curNodeExpr[0], oDict, vDict))
 
         invOp = invOpReader(curNodeExpr[1], leftIsMissing)
         backPassVal = invOp(backPassVal, otherVal)

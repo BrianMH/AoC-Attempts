@@ -93,7 +93,7 @@ def p2Soln(inFile: str, rpsFixture: CondRPSFixture) -> int:
 
 if __name__ == "__main__":
     # Sets up the hard values for the first problem...
-    inFile = "./Day2/input"
+    inFile = "./Day02/input"
     shapeScores = {"A": 1, "B":2, "C":3}
     decryptDict = {"X":"A", "Y":"B", "Z":"C"}
     (winVal, lossVal, tieVal) = (6, 0, 3)

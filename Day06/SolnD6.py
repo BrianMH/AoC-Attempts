@@ -28,7 +28,7 @@ def p1Soln(inFile: str, substrLen: int) -> int:
 
 if __name__ == "__main__":
     # Setup env for p1
-    inFile = "./Day6/input"
+    inFile = "./Day06/input"
     desiredSubstrLen = 4
 
     # Eval p1

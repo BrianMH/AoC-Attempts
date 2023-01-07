@@ -70,7 +70,7 @@ def p2Soln(inFile: str, N: int) -> list[int]:
 
 if __name__ == "__main__":
     # Name of the file for part 1
-    p1File = "./Day1/input"
+    p1File = "./Day01/input"
 
     # Executes the first part of the problem
     sol1 = p1Soln(p1File)

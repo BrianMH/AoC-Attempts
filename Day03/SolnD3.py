@@ -73,7 +73,7 @@ def p2Soln(inFile: str) -> list[str]:
 
 if __name__ == "__main__":
     # Set up space for P1
-    inFile = "./Day3/input"
+    inFile = "./Day03/input"
 
     # Evaluate P1
     soln1 = p1Soln(inFile)

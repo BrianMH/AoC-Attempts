@@ -59,28 +59,8 @@ class ChaseSimulation:
 
         return genDelta
 
-    def getUniqueTailPosCount(self) -> int:
+    def getFinalTailPosCount(self) -> int:
         return len(self.tMemory)
-
-# Our class naturally supports the double know so we go ahead
-# and simulate it directly
-def p1Soln(inFile: str) -> int:
-    # prepare simulation framework
-    curSim = ChaseSimulation(sLoc = (0,0))
-
-    # go through the given commands and process them
-    cmdDict = {"R":(0, 1), "U":(-1, 0), "D":(1, 0), "L":(0, -1)}
-    with open(inFile, 'r') as cmdList:
-        curLine = cmdList.readline()
-        while curLine:
-            # deal with commands
-            dirToMove, numMoves = curLine.rstrip().split()
-            [curSim.moveHeadPiece(*cmdDict[dirToMove]) for _ in range(int(numMoves))]
-
-            # and then move on to the next
-            curLine = cmdList.readline()
-
-    return curSim.getUniqueTailPosCount()
 
 ###############################################################
 #   Soln for P2 of Day 9 for AoC
@@ -114,36 +94,40 @@ class ChaseHarness:
     # returns the tail segment unique positions for the given segment
     # note that this is zero-indexed but begins from the second segment's
     # history
-    def getUniqueTailPosCount(self, segInd: int):
-        return self.tailSegs[segInd].getUniqueTailPosCount()
+    def getUniqueTailPosCount(self, segInd: int) -> int:
+        return self.tailSegs[segInd].getFinalTailPosCount()
+    
+    # Compat for the above (just considers the last segment's connection)
+    def getFinalTailPosCount(self) -> int:
+        return self.tailSegs[-1].getFinalTailPosCount()
 
-def p2Soln(inFile: str, tailLen: int) -> int:
-    # prepare simulation framework
-    curSim = ChaseHarness(sLoc = (0,0), tailLength = tailLen)
-
+def tailSimExecutor(inFile: str, simModel: ChaseSimulation|ChaseHarness) -> int:
     # go through the given commands and process them
     cmdDict = {"R":(0, 1), "U":(-1, 0), "D":(1, 0), "L":(0, -1)}
+
     with open(inFile, 'r') as cmdList:
         curLine = cmdList.readline()
         while curLine:
             # deal with commands
             dirToMove, numMoves = curLine.rstrip().split()
-            [curSim.moveHeadPiece(*cmdDict[dirToMove]) for _ in range(int(numMoves))]
+            [simModel.moveHeadPiece(*cmdDict[dirToMove]) for _ in range(int(numMoves))]
 
             # and then move on to the next
             curLine = cmdList.readline()
 
-    return curSim.getUniqueTailPosCount(tailLen-1)
+    return simModel.getFinalTailPosCount()
 
 if __name__ == "__main__":
     # prepare env for p1
-    inFile = "./Day9/input"
+    inFile = "./Day09/input"
 
     # evaluate on p1
-    sol1 = p1Soln(inFile)
+    p1Sim = ChaseSimulation(sLoc = (0,0))
+    sol1 = tailSimExecutor(inFile, p1Sim)
     print("The solution for part 1 is {}".format(sol1))
 
     # evalute on p2 now
     tailSize = 9
-    sol2 = p2Soln(inFile, 9)
+    p2Sim = ChaseHarness(sLoc = (0,0), tailLength = tailSize)
+    sol2 = tailSimExecutor(inFile, p2Sim)
     print("The solution for part 2 is {}".format(sol2))

@@ -115,7 +115,7 @@ def p2Soln(inFile: str) -> str:
 
 if __name__ == "__main__":
     # Set up env for first problem
-    inFile = "./Day5/input"
+    inFile = "./Day05/input"
 
     # Then evaluate the problem
     sol1 = p1Soln(inFile)

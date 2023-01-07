@@ -136,7 +136,7 @@ def p2Soln(inFile: str, totFSSize: int, updateSize: int) -> int:
 
 if __name__ == "__main__":
     # prepare env for p1
-    inFile = "./Day7/input"
+    inFile = "./Day07/input"
 
     # evaluate on p1 algo
     soln1 = p1Soln(inFile)

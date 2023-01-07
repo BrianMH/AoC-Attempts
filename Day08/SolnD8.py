@@ -119,7 +119,7 @@ def p2Soln(inFile: str) -> int:
 
 if __name__ == "__main__":
     # Set up env for p1
-    inFile = "./Day8/input"
+    inFile = "./Day08/input"
 
     # Process algo for p1
     soln1 = p1Soln(inFile)

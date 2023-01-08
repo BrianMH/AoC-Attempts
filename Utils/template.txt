@@ -1,0 +1,28 @@
+#############################################################
+#   Soln for P1 of Day {day} for AoC
+#
+# Problem:
+#     
+#############################################################
+
+
+
+#############################################################
+#   Soln for P2 of Day {day} for AoC
+#
+# Problem:
+#     
+#############################################################
+
+
+if __name__ == "__main__":
+    # prepare env for p1
+    inFile = {inFile}
+
+    # execute algo for p1
+    sol1 = 
+    print("The answer to part 1 is {{}}".format(sol1))
+
+    # and now for p2
+    sol2 = 
+    print("The answer to aprt 2 is {{}}".format(sol2))

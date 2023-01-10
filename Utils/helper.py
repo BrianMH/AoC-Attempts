@@ -14,6 +14,7 @@ class FileConsts:
     DIR_PATH = "{}/Day{}"
     PY_FILENAME = "SolnD{}.py"
     PY_TEMPLATE = "./Utils/template.txt"
+    LOG_PATH = path.devnull   # Change this if you want the logs
 
 # Typing constant that represents possible changes
 #    bool  - Whether the change can be performed without user permission
@@ -225,7 +226,8 @@ def grabCookieFromFirefox(profilePath: str = "") -> dict[str, str]:
     fProf = selenium.webdriver.FirefoxProfile(profilePath)
     fDOps = selenium.webdriver.firefox.options.Options()
     fDOps.headless = True
-    fDriver = selenium.webdriver.Firefox(firefox_profile = fProf, options = fDOps)
+    fService = selenium.webdriver.firefox.service.Service(log_path = FileConsts.LOG_PATH)
+    fDriver = selenium.webdriver.Firefox(firefox_profile = fProf, options = fDOps, service = fService)
     fDriver.get("https://adventofcode.com/")
     sCookie = fDriver.get_cookie('session') 
     fDriver.quit()

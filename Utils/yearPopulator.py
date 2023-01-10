@@ -10,6 +10,8 @@
 #   a single day by specifying the proper arguments for that. On December,
 #   this function also can immediately create the templated directory
 #   automatically.
+#
+# TODO: Save token to cache and rerun only when current session is dead.
 #############################################################
 from helper import bcolors, FileWriteTemplate, planDirectoryStructure, performWriteOps, \
                    initializeParser, combineRanges, grabCookieFromFirefox
@@ -67,7 +69,9 @@ def fileOpCoordinator(parsedArgs: Namespace) -> int:
     '''
 
     # first grab relevant arguments neede to create the plan
-    relDays = combineRanges(parsedArgs.day, lambda x: 1 <= x <= 31)
+    if parsedArgs.all:
+        parsedArgs.day = ["1-25"]
+    relDays = combineRanges(parsedArgs.day, lambda x: 1 <= x <= 25)
 
     # If no session passed, automatically grab it from the browser
     print("Grabbing current AoC session token...", end = " ")

@@ -17,7 +17,7 @@
 
 if __name__ == "__main__":
     # prepare env for p1
-    inFile = {inFile}
+    inFile = "{inFile}"
 
     # execute algo for p1
     sol1 = 

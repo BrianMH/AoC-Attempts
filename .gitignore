@@ -1,0 +1,3 @@
+# ignore python temp garbage
+__pycache__/
+geckodriver.log

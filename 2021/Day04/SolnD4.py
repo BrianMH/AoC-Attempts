@@ -80,6 +80,12 @@ class BingoBoard:
 
         return lastValPlayed * nonMarkedSum
 
+    def resetBoard(self) -> None:
+        '''
+            Resets the board state to an empty one.
+        '''
+        self.board = [0b00000] * 5
+
 class BingoGame:
     '''
         A collection of bingo boards that represents an entire session
@@ -87,7 +93,6 @@ class BingoGame:
     '''
     def __init__(self):
         self.boards = list()
-        self.playedVals = set()
         self.valLookup = defaultdict(list)
 
     def initializeBoardsFromFile(self, inFile: str, * , ignoreHeader: bool = True) -> None:
@@ -133,6 +138,11 @@ class BingoGame:
                         return (valInPlay, self.boards[relBoardInd])
 
         return None # no games win by the end of the value list
+    
+    def resetAllBoards(self) -> None:
+        ''' Resets every board contained in the game '''
+        for board in self.boards: 
+            board.resetBoard()
 
     @staticmethod
     def extractValArrHeader(inFile: str) -> list[int]:
@@ -154,7 +164,6 @@ if __name__ == "__main__":
     print("The answer to part 1 is {}".format(winningBoard.calculateP1Answer(lastVal)))
 
     # reset and and now find p2 sol
-    curGame = BingoGame()
-    curGame.initializeBoardsFromFile(inFile)
+    curGame.resetAllBoards()
     lastVal, failBoard = curGame.playValues(valCmds, findLast = True)
     print("The answer to aprt 2 is {}".format(failBoard.calculateP1Answer(lastVal)))

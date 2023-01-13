@@ -166,4 +166,4 @@ if __name__ == "__main__":
     # reset and and now find p2 sol
     curGame.resetAllBoards()
     lastVal, failBoard = curGame.playValues(valCmds, findLast = True)
-    print("The answer to aprt 2 is {}".format(failBoard.calculateP1Answer(lastVal)))
+    print("The answer to part 2 is {}".format(failBoard.calculateP1Answer(lastVal)))

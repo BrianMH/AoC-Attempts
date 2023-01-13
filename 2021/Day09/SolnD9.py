@@ -92,4 +92,4 @@ if __name__ == "__main__":
 
     # and now for p2
     lpBasinSizes = sorted([getBasinSize(pt, hMap) for pt in lowPts], reverse = True)
-    print("The answer to aprt 2 is {}".format(lpBasinSizes[0]*lpBasinSizes[1]*lpBasinSizes[2]))
+    print("The answer to part 2 is {}".format(lpBasinSizes[0]*lpBasinSizes[1]*lpBasinSizes[2]))

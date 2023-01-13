@@ -148,4 +148,4 @@ if __name__ == "__main__":
             decoder = SevenSegmentParser(leftToks)
             p2Sum += decoder.segToInt(rightToks)
             curLine = toParse.readline()
-    print("The answer to aprt 2 is {}".format(p2Sum))
+    print("The answer to part 2 is {}".format(p2Sum))

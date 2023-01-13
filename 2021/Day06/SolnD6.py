@@ -72,4 +72,4 @@ if __name__ == "__main__":
     # and now for p2
     leftoverDays = 256 - NUM_DAYS
     sol2 = lSim.simulateDays(leftoverDays)
-    print("The answer to aprt 2 is {}".format(sol2))
+    print("The answer to part 2 is {}".format(sol2))

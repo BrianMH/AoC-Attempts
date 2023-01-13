@@ -87,4 +87,4 @@ if __name__ == "__main__":
     O2Rating = stepwiseConcensusFiltering(binVals)
     CO2Rating = stepwiseConcensusFiltering(binVals, mostPresent = False)
     sol2 = int(O2Rating, 2) * int(CO2Rating, 2)
-    print("The answer to aprt 2 is {}".format(sol2))
+    print("The answer to part 2 is {}".format(sol2))

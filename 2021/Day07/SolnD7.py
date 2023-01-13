@@ -75,4 +75,4 @@ if __name__ == "__main__":
     # and now for p2
     newCost = lambda x, y: sum(range(abs(y-x)+1))
     sol2 = searchForOptimalPosition(inVals, costFunc = newCost)
-    print("The answer to aprt 2 is {}".format(sol2))
+    print("The answer to part 2 is {}".format(sol2))

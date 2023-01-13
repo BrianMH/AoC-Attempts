@@ -64,4 +64,4 @@ if __name__ == "__main__":
     subSim = Submarine(useAim = True)
     subSim.processMovementFile(inFile)
     sol2 = subSim.generateSolution()
-    print("The answer to aprt 2 is {}".format(sol2))
+    print("The answer to part 2 is {}".format(sol2))

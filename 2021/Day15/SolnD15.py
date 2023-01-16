@@ -1,5 +1,5 @@
 #############################################################
-#   Soln for P1 of Day 15 for AoC
+#   Soln for P1 & P2 of Day 15 for AoC
 #
 # Problem:
 #   A path-finding problem that also desires the path to be
@@ -81,19 +81,24 @@ def getNeighborNodes(curPt: Point, maxY: int, maxX: int) -> list[Point]:
     return toRet
 
 def generatePathFromHist(pNodes: dict[Point, Point], curNode: Point) -> list[int]:
+    '''
+        A helper function for the A* function. Given the history dict and the last
+        node traversed, this function builds up the path in reverse and flips it.
+
+        Arguments:
+            pNodes - A dictionary representing the past node connections.
+            curNode - The node to begin creating the path from.
+        
+        Returns:
+            list - A list representing the chain of nodes traversed to reach the
+                   final node. Note that this contains their coordinates, not their
+                   values in the matrix.
+    '''
     path = [curNode]
     while curNode in pNodes:
         curNode = pNodes[curNode]
         path.append(curNode)
     return list(reversed(path))
-
-#############################################################
-#   Soln for P2 of Day 15 for AoC
-#
-# Problem:
-#     
-#############################################################
-
 
 if __name__ == "__main__":
     # prepare env for p1

@@ -1,7 +1,7 @@
 # helper imports
 from typing import Callable, Optional
 from datetime import datetime, timezone, timedelta # time tab-keeping
-from os import makedirs, getcwd, path # directory creation
+from os import makedirs, path # directory creation
 from functools import partial
 import selenium.webdriver # used to grab active session cookies
 import argparse # used to parse arguments
@@ -67,7 +67,7 @@ def initializeParser(relTimeDelta: int = -5) -> tuple[argparse.ArgumentParser, d
     yHelperStr = "The year to consider when creating the AoC directory."
     parser.add_argument("--year", default = curYear, type = int, help = yHelperStr)
     dHelperStr = "The day for the specified year for which to create a folder for. Supports ranges using '-' and multiple arguments"
-    parser.add_argument("--day", nargs = '+', default = [curDay], type = str, help = dHelperStr, metavar = ('D1-D2', 'D2-D3'))
+    parser.add_argument("--day", nargs = '+', default = ["{}".format(curDay)], type = str, help = dHelperStr, metavar = ('D1-D2', 'D2-D3'))
     parser.add_argument("-o", nargs = 1, dest = "pPath",  default = ".", help = "Specifies a custom output directory.", metavar = './path/to/outDir')
 
     return parser, curDate
